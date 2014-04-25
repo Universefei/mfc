@@ -42,11 +42,21 @@ CMainFrame::~CMainFrame()
 {
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// OnCreate() function was invoked when MainFrame was first created!
+// 3 things to do in this function:
+// ================================
+// [1]:Invoke baseclass's OnCreate() function
+// [2]:Create toolbar
+// [3]:Create statusbar
+// 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
+	// [1]:invoke baseclass's OnCreate() function
 	if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
+	// [2]:Create ToolBar
 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
 		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
 	{
@@ -54,6 +64,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // fail to create
 	}
 
+	// [3]:Create StatusBar
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("Failed to create status bar\n");
@@ -70,6 +81,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWnd::PreCreateWindow(cs) )
